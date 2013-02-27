@@ -1,0 +1,66 @@
+{% extends 'PurchaseBundle::purchase_detail_layout.html.twig' %}
+
+{% block content %}
+
+    <legend>Товары в закупке:</legend>
+        <div class="offers">
+                {% for offer in purchase.offers %}
+                <div class="item">
+                    <div class="image">
+                        <a class="thumbnail" href="{{ path('purchase_show_offer', { 'purchaseId': purchase.id, 'offerId': offer.id }) }}">
+                            <img src="{{ offer.webPath | apply_filter('medium_thumb') }}">
+                        </a>
+                    </div>
+                    <div class="body">
+                        <div class="title">
+                            {{ offer.title }}
+                        </div>
+                        <div class="price">
+                            {{ offer.price }} руб.
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+        </div>
+        {% if (purchase.owner != app.user) and (purchase.userCanAddOffers == TRUE)%}
+        <div class="alert">
+            Организатор предоставил пользователям возможность самим добавлять товары в закупку с сайта {{ purchase.fromSite }}<br>
+            <a class="btn btn-info">Добавить товар</a>
+        </div>
+        {% endif %}
+    <legend>Комментарии:</legend>
+    
+    <div class="comments">
+    {% for comment in purchase.comments %}
+        <div class="item">
+          <div class="image">
+            <img class="img-polaroid" src="{{ comment.writer.webPath | apply_filter('small_thumb') }}">
+          </div>
+          <div class="data">
+            <div class="name"><strong>{{ comment.writer.username }}</strong></div>
+            <div class="date">{{ comment.created|date("H:m d.m.Y") }}</div>
+          </div>
+          <div class="body">{{ comment.body }}</div>
+        </div>
+        <hr>
+    {% endfor %}
+    </div>
+    
+    <br>
+    
+    <form action="{{ path('purchase_comment_create', { 'id': purchase.id }) }}" method="post" {{ form_enctype(comment_form) }} class="form-horizontal">
+    {{ form_errors(comment_form) }}
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(comment_form.body) }}
+            {{ form_errors(comment_form.body) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(comment_form.body) }}
+	</div>
+    </div>
+    {{ form_rest(comment_form) }}
+    <button type="submit" class="btn btn-info btn-large">Отправить</button>
+    </form>
+
+{% endblock %}

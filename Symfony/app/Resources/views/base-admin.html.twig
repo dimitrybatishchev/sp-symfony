@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,300,700,800' rel='stylesheet' type='text/css'>
+            <link href="{{ asset('/foundation/stylesheets/foundation.min.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('/css/admin.css') }}" type="text/css" rel="stylesheet" />
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        
+<div class="container">
+        <nav class="top-bar">
+      <ul>
+        <!-- Title Area -->
+        <li class="name">
+          <h1><a href="#">Совместные покупки</a></h1>
+        </li>
+        <li class="toggle-topbar"><a href="#"></a></li>
+      </ul>
+    </nav>
+  </div>
+        
+        
+        <header class="row">
+	  <div class="eight columns">
+	    <h1><a href="index.php">Панель администратора</a></h1>
+	    <h4 class="subheader">Настройте ваш сайт как угодно</h4>
+	  </div>
+	</header>
+        
+       <div class="container row">
+       
+            <div class="two columns">
+                <ul class="nav-bar vertical">
+                  <li class="active"><a href="#">Статистика</a></li>
+                  <li class="has-flyout">
+                    <a href="#">Сущности</a>
+                    <a href="#" class="flyout-toggle"><span> </span></a>
+                    <ul class="flyout">
+                      <li><a href="{{ path('admin_faq') }}">Faq</a></li>
+                      <li><a href="#">Совместная покупка</a></li>
+                      <li><a href="{{ path('admin_sp_status') }}">Статус закупки</a></li>
+                      <li><a href="{{ path('admin_spitem') }}">Товар в покупке</a></li>
+                      <li><a href="{{ path('admin_transfer') }}">Способ оплаты</a></li>
+                      <li><a href="{{ path('admin_delivery') }}">Способ доставки</a></li>
+                      <li><a href="{{ path('admin_category') }}">Категория</a></li>
+                      <li><a href="{{ path('admin_city') }}">Город</a></li>
+                      <li><a href="{{ path('admin_post') }}">Страница</a></li>
+                    </ul>
+                  </li>
+                </ul>
+           </div>
+           
+           <div class="ten columns">
+               {% block body %}{% endblock %}
+           </div>
+           
+       </div>
+        
+        
+        <hr>
+        <div class="container">
+        <div id="copyright">
+            <div class="row">
+              <div class="four columns">
+                <p>Батищев Дмитрий © 2012 XATA, inc.</p>
+              </div>
+              <div class="eight columns">
+                <ul class="inline-list right">
+                  <li><a href="/">На сайт</a></li>
+                </ul>
+              </div>
+            </div>
+        </div>
+                </div>
+        
+        {% block javascripts %}
+            <script src="{{ asset('/js/lib/jquery-1.8.3.min.js') }}"></script>
+            <script src="{{ asset('/foundation/javascripts/foundation.min.js') }}"></script>
+            <script src="{{ asset('/foundation/javascripts/app.js') }}"></script>
+        {% endblock %}
+        
+    </body>
+</html>

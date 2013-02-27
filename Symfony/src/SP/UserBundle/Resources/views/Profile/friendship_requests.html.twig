@@ -1,0 +1,27 @@
+{% extends '::base-content.html.twig' %}
+
+{% block main %}
+
+<div class="page-header">
+    <h1>Предложения дружбы</h1>
+</div>
+
+{% for friendship_request in friendship_requests %}
+<div class="row-fluid">
+  <div class="span2">
+  {% if friendship_request.sender.webPath %}
+    <img class="img-polaroid" src="{{ friendship_request.sender.webPath | apply_filter('medium_thumb') }}">
+  {% endif %}
+  </div>
+<div class="span9">
+  <span>{{ friendship_request.sender.firstname }} {{ friendship_request.sender.lastname }}</span><br>
+  <strong>{{ friendship_request.sender.username }}</strong><br>
+  <br>
+  <a class="btn btn-success" href="{{ path('friendship_confirm', { 'id': friendship_request.id }) }}">Принять</a>
+  <a class="btn btn-danger">Отклонить</a>
+</div>
+</div>
+<hr>
+{% endfor %}
+
+{% endblock %}

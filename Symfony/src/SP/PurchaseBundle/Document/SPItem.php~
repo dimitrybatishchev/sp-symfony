@@ -1,0 +1,21 @@
+<?php
+
+namespace SP\SPBundle\Document;
+
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+
+/**
+ * @MongoDB\Document
+ */
+class SPItem
+{
+    /**
+     * @MongoDB\Id
+     */
+    protected $id;
+
+    /**
+     * @MongoDB\String
+     */
+    protected $title;
+}

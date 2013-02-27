@@ -1,0 +1,19 @@
+{% extends '::base-admin.html.twig' %}
+{% block body %}
+<h1>Создание способа оплаты</h1>
+
+<form action="{{ path('admin_transfer_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_transfer') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

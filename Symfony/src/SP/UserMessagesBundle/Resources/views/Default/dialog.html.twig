@@ -1,0 +1,88 @@
+{% extends '::base-content.html.twig' %}
+
+{% block main %}
+
+<div class="page-header">
+    <h1>Личные сообщения</h1>
+</div>
+
+<ul class="nav nav-tabs">
+  <li class="active">
+    <a href="{{ path("messages_main") }}">Разговоры</a>
+  </li>
+  <li><a href="{{path("messages_new")}}">Отправить сообщение</a></li>
+</ul>
+
+<div class="messages">
+{% for message in messages %}
+  <div class="message 
+       {% if message.isRead %}read{% else %}unread{% endif %}
+       {% if message.sender == app.user %}left{% else %}right{% endif %}">
+      <a href="{{ url("messages_dialog", {'username': message.sender.username}) }}">
+    {% if message.sender.webPath %}
+    <div class="image">
+      <img class="img-polaroid" src="{{ message.sender.webPath | apply_filter('small_thumb') }}">
+    </div>
+    {% endif %}   
+    <div class="body">{{ message.body }}</div>
+    <div class="date">{{ message.sentTime|date("H:m d.m.Y") }}</div>
+    </a>
+  </div>
+  <hr>
+{% endfor %}
+</div>
+
+<style>
+        .messages hr{
+            margin: 5px 0;
+        }
+        .message{
+            padding: 10px 10px 10px 10px;
+        }
+        .message.unread{
+            background: #EDF1F5;
+        }
+        .message a{
+            color: inherit;
+            display: block;
+            
+        }
+        .message a:hover{
+            text-decoration: none;
+        }
+        .message:after {
+            content: "";
+            display: table;
+            clear: both;
+          }
+        .message .image{
+            float: left;
+            margin: 0 10px 0 0;
+        }
+        .message .data{
+            float: left;
+            margin: 0 10px 0 0;
+            min-height: 60px;
+        }
+        .message .date{
+            font-size: 10px;
+            color: #999;
+        }
+        .message .body{
+    
+        }
+        .message.right .image{
+            float: right;
+            margin: 0 0 0 10px;
+        }
+        .message.right .date{
+            float: right;
+            text-align: right;
+        }
+        .message.right .body{
+            text-align: right;
+        }
+</style>
+
+
+{% endblock %}

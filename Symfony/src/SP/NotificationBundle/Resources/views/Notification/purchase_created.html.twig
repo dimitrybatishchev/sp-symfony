@@ -1,0 +1,8 @@
+<div class="notification clearfix {% if not notification.readed %}unread{% endif %}">
+    <div class="title"><strong>Создана новая закупка: "<a href="{{ path('purchase_detail', { 'id': notification.purchase.id }) }}">{{ notification.purchase.title }}</a>"</strong></div>
+    <div class="owner">
+        <img class="img-polaroid" src="{{ notification.purchase.owner.webPath | apply_filter('small_thumb') }}">
+        Организатор<br>
+        <strong>{{ notification.purchase.owner.username }}</strong>
+    </div>
+</div>

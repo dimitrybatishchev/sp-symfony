@@ -1,0 +1,68 @@
+{% extends '::base-content.html.twig' %}
+
+{% block main %}
+
+<div class="page-header">
+    <h1>Изменение товара в закупке</h1>
+</div>
+
+<form action="{{ path('purchase_edit_offer', { 'purchaseId': offer.purchase.id, 'offerId': offer.id }) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+    {{ form_errors(form) }}
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.title) }}
+            {{ form_errors(form.title) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.title) }}
+	</div>
+    </div>
+        
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.codeNumber) }}
+            {{ form_errors(form.codeNumber) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.codeNumber) }}
+	</div>
+    </div>
+        
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.description) }}
+            {{ form_errors(form.description) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.description) }}
+	</div>
+    </div>
+        
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.price) }}
+            {{ form_errors(form.price) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.price) }}
+	</div>
+    </div>
+        
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.file) }}
+            {{ form_errors(form.file) }}
+        </div>
+	<div class="controls">
+            <img src="{{ offer.webPath | apply_filter('my_thumb') }}"><br><br>
+            {{ form_widget(form.file) }}
+	</div>
+    </div>
+        
+    
+    {{ form_rest(form) }}
+
+    <button type="submit" class="btn btn-info btn-large">Добавить товар в закупку</button>
+
+</form>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends '::base-content.html.twig' %}
+{% block main %}
+
+<div class="offer">
+    <h3>Изучение спроса "{{ mr.name }}"</h3>
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="image">
+                <img src="{{ mr.webPath | apply_filter('my_thumb') }}" class="img-polaroid">
+            </div>
+            <br>
+            {% if vote_form is defined %}
+            <form action="{{ path('market_research_vote', { 'id': mr.id }) }}" method="post">
+                {{ form_widget(vote_form) }}
+                {{ form_rest(vote_form) }}
+                <button type="submit" class="btn btn-success">Поддержать</button>
+            </form>
+            {% endif %}
+            {% if delete_form is defined %}
+            <form action="{{ path('market_research_delete', { 'id': mr.id }) }}" method="post">
+                {{ form_widget(delete_form) }}
+                {{ form_rest(delete_form) }}
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            </form>
+            {% endif %}
+        </div>
+        <div class="span9">
+            <div class="description">{{ mr.description }}</div>
+            <div>Это предложение поддержало <span class="badge badge-success">{{ mr.voted | length }}</span> человек</div>
+        </div>
+    </div>
+    <br>
+</div>
+
+    <legend>Комментарии:</legend>
+    
+    <div class="comments">
+    {% for comment in mr.comments %}
+        <div class="item">
+          <div class="image">
+            <img class="img-polaroid" src="{{ comment.writer.webPath | apply_filter('small_thumb') }}">
+          </div>
+          <div class="data">
+            <div class="name"><strong>{{ comment.writer.username }}</strong></div>
+            <div class="date">{{ comment.created|date("H:m d.m.Y") }}</div>
+          </div>
+          <div class="body">{{ comment.body }}</div>
+        </div>
+        <hr>
+    {% endfor %}
+    </div>
+    
+    <br>
+    
+    <form action="{{ path('market_research_comment_create', { 'id': mr.id }) }}" method="post" {{ form_enctype(comment_form) }} class="form-horizontal">
+    {{ form_errors(comment_form) }}
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(comment_form.body) }}
+            {{ form_errors(comment_form.body) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(comment_form.body) }}
+	</div>
+    </div>
+    {{ form_rest(comment_form) }}
+    <button type="submit" class="btn btn-info btn-large">Отправить</button>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends '::base-content.html.twig' %}
+
+{% block main %}
+
+<div class="page-header">
+    <h1>Личные сообщения</h1>
+</div>
+
+<ul class="nav nav-tabs">
+  <li>
+    <a href="{{ path("messages_main") }}">Разговоры</a>
+  </li>
+  <li class="active"><a href="{{ path("messages_new") }}">Отправить сообщение</a></li>
+</ul>
+
+<form action="{{ path('messages_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+    {{ form_errors(form) }}
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.receiver) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.receiver) }}
+	</div>
+    </div>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.body) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.body) }}
+	</div>
+    </div>
+    {{ form_rest(form) }}
+    <button type="submit" class="btn btn-info btn-large">Отправить</button>
+</form>
+
+{% endblock %}

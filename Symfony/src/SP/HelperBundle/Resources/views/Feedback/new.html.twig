@@ -1,0 +1,64 @@
+{% extends '::base-content.html.twig' %}
+
+{% block title %}Вопросы и ответы{% endblock %}
+
+{% block main %}
+
+    <div class="page-header">
+        <h1>Техническая поддержка</h1>
+    </div>
+
+    {% if sended %}
+      <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Спасибо!</strong> Администрация сделает все возможное для устранения проблемы!
+      </div>
+    {% else %}
+    
+    <p>
+    Если у Вас возникла какая-то проблемы при работе с сайтом, пожалуйста, опишите её подробнее: 
+    </p>
+    <ul>
+        <li>Номер и название закупки</li>
+        <li>Адрес страницы, где произошла ошибка или что-то работает не так</li>
+        <li>Время, когда произошла проблема (иногда это имеет значение)</li>
+    </ul>
+    <p>
+    Отправьте эту информацию через эту форму или на электронную почту <a href="mailto:support@vladpokupki.ru">support@vladpokupki.ru</a>
+    </p>
+    
+    <hr>
+    
+    <form action="{{ path('feedback') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+        {{ form_errors(form) }}
+        <div class="control-group">
+            <div class="control-label">
+                {{ form_label(form.subject) }}
+                {{ form_errors(form.subject) }}
+            </div>
+            <div class="controls">
+                {{ form_widget(form.subject) }}
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                {{ form_label(form.message) }}
+                {{ form_errors(form.message) }}
+            </div>
+            <div class="controls">
+                {{ form_widget(form.message) }}
+            </div>
+        </div>
+
+
+        {{ form_rest(form) }}
+
+        <button type="submit" class="btn btn-info btn-large">Отправить</button>
+
+    </form>
+    
+    {% endif %}
+    
+
+{% endblock %}

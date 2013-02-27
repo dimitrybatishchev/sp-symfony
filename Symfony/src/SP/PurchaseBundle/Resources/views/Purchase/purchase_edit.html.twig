@@ -1,0 +1,38 @@
+{% extends '::base-content.html.twig' %}
+
+{% block main %}
+
+<div class="page-header">
+    <h1>Управление закупкой</h1>
+    <div>Текущий статус закупки: <span class="label label-success">{{ purchase.status.name }}</span></div>
+    
+    <br>
+    
+    {% if purchase.offers is empty %}
+        <div class="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Для перевода закупки в следующий статус требуется добавить хотя бы одно предложение.
+        </div>
+    {% endif %}
+    
+    {% if (not purchase.stopSum) and ( not purchase.stopMinCount) and ( not purchase.stopDate) %}
+        <div class="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Вы не выбрали условия завершения закупки. Она будет продолжать до тех пор, пока вы сами ее не остановите.
+        </div>
+    {% endif %}
+    
+    {% if (not purchase.offers is empty) %}
+    <form action="{{ path('purchase_change_status', { 'id': purchase.id }) }}" method="post" class="form-horizontal">
+        <button type="submit" class="btn btn-info btn-large">Перевести закупку в следующий статус</button>
+    </form>
+    {% endif %}
+    
+    <form action="{{ path('sp_delete', { 'id': purchase.id }) }}" method="post">
+        {{ form_widget(delete_form) }}
+        {{ form_rest(delete_form) }}
+        <button type="submit" class="btn btn-danger">Удалить закупку</button>
+    </form>
+</div>
+
+{% endblock %}

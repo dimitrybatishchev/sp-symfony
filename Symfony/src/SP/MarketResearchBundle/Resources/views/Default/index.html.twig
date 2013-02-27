@@ -1,0 +1,27 @@
+{% extends '::base-content.html.twig' %}
+{% block main %}
+
+<div class="page-header"><h1>Изучение спроса</h1></div>
+
+<div class="pull-right"><a class="btn btn-info" href="{{ path('market_research_create') }}">Создать</a></div>
+
+<table class="table table-striped table-condensed">
+  <thead>
+      <tr>
+          <th>Название</th>
+          <th>Организатор</th>
+          <th>Дата создания</th>                                          
+      </tr>
+  </thead>   
+  <tbody>
+    {% for marketResearch in entities %}
+        <tr>
+            <td><a href="{{ path('market_research_detail', { 'id': marketResearch.id }) }}">{{ marketResearch.name }}</a></td>
+            <td>{{ marketResearch.owner.username }}</td>
+            <td>{{ marketResearch.created|date("m/d/Y") }}</td>                                       
+        </tr>
+    {% endfor %}                       
+  </tbody>
+</table>
+
+{% endblock %}

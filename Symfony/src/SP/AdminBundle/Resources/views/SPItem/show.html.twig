@@ -1,0 +1,31 @@
+{% extends '::base-admin.html.twig' %}
+{% block body %}
+<h1>Категория</h1>
+
+<p>{{ entity.id }}</p>
+<p>{{ entity.title }}</p> 
+<p>{{ entity.price }}</p> 
+<p>{{ entity.codeNumber }}</p>
+<p>{{ entity.description }}</p>
+<p><img src="{{ asset(entity.webPath) }}"></p>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_spitem') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('admin_spitem_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('admin_spitem_delete', { 'id': entity.id }) }}" method="post">
+            <input type="hidden" name="_method" value="DELETE" />
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>
+{% endblock %}

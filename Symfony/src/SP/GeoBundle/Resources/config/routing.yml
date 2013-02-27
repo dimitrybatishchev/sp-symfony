@@ -1,0 +1,3 @@
+geo_homepage:
+    pattern:  /
+    defaults: { _controller: GeoBundle:Default:index }

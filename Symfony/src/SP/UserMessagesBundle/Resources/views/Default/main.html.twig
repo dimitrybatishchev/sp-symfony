@@ -1,0 +1,72 @@
+{% extends '::base-content.html.twig' %}
+
+{% block main %}
+
+<div class="page-header">
+    <h1>Личные сообщения</h1>
+</div>
+
+<ul class="nav nav-tabs">
+  <li class="active">
+    <a href="{{ path("messages_main") }}">Разговоры</a>
+  </li>
+  <li><a href="{{ path("messages_new") }}">Отправить сообщение</a></li>
+</ul>
+
+<div class="dialogs">
+{% for dialog in dialogs %}
+  <div class="dialog {% if dialog.message.isRead %}read{% else %}unread{% endif %}">
+      <a href="{{ url("messages_dialog", {'username': dialog.receiver.username}) }}">
+    {% if dialog.receiver.webPath %}
+    <div class="image">
+      <img class="img-polaroid" src="{{ dialog.receiver.webPath | apply_filter('small_thumb') }}">
+    </div>
+    {% endif %}
+          <div class="data">
+            <div class="name"><strong>{{ dialog.receiver.username }}</strong></div>
+            <div class="date">{{ dialog.message.sentTime|date("H:m d.m.Y") }}</div>
+          </div>
+    <div class="body">{{ dialog.message.body }}</div>
+    </a>
+  </div>
+  <hr>
+{% endfor %}
+</div>
+
+<style>
+        .dialogs hr{
+            margin: 5px 0;
+        }
+        .dialog{
+            padding: 10px 0 10px 10px;
+        }
+        .dialog.unread{
+            background: #EDF1F5;
+        }
+        .dialog a{
+            color: inherit;
+            display: block;
+        }
+        .dialog:after {
+            content: "";
+            display: table;
+            clear: both;
+          }
+        .dialog .image{
+            float: left;
+            margin: 0 10px 0 0;
+        }
+        .dialog .data{
+            float: left;
+            margin: 0 10px 0 0;
+            min-height: 60px;
+        }
+        .dialog .data .date{
+            font-size: 10px;
+            color: #999;
+        }
+        .dialog .body{
+        }
+</style>
+
+{% endblock %}

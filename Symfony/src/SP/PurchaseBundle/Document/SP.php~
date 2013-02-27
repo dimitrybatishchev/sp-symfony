@@ -1,0 +1,94 @@
+<?php
+
+namespace SP\SPBundle\Document;
+
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+
+/**
+ * @MongoDB\Document
+ */
+class SP
+{
+    /**
+     * @MongoDB\Id
+     */
+    protected $id;
+
+    /**
+     * @MongoDB\String
+     */
+    protected $title;
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="City")
+     */
+    protected $city;
+    
+    /**
+     * @MongoDB\Boolean
+     */
+    protected $foreign_users;
+    /**
+     * @MongoDB\ReferenceMany(targetDocument="Categories")
+     */
+    protected $categories;
+    
+    /**
+     * @MongoDB\String
+     */
+    protected $from_site;
+    /**
+     * @MongoDB\Boolean
+     */
+    protected $user_can_add_offers;
+    
+    /**
+     * @MongoDB\Boolean
+     */
+    protected $color_is_garanted;
+    /**
+     * @MongoDB\Boolean
+     */
+    protected $size_is_garanted;
+    /**
+     * @MongoDB\Boolean
+     */
+    protected $exchange_broken_is_garanted;
+    /**
+     * @MongoDB\Int
+     */
+    protected $profit;
+    /**
+     * @MongoDB\Boolean
+     */
+    protected $delivery_included;
+    /**
+     * @MongoDB\ReferenceMany(targetDocument="TransferType")
+     */
+    protected $money_transfer_types;   
+    /**
+     * @MongoDB\Int
+     */
+    protected $prepayment_amount;
+    /**
+     * @MongoDB\ReferenceMany(targetDocument="DeliveryType")
+     */
+    protected $delivery_types;
+    
+    /**
+     * @MongoDB\String
+     */
+    protected $description;
+    /**
+     * @MongoDB\String
+     */
+    protected $supplier;
+    /**
+     * @MongoDB\Date
+     */
+    protected $created;
+    /**
+     * @MongoDB\ReferenceMany(targetDocument="User")
+     */
+    protected $owner;
+
+}

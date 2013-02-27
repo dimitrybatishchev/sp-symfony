@@ -16,9 +16,11 @@ framework:
     default_locale:  %locale%
     trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
     session:         ~
+    translator: { fallback: ru }
 
 # Twig Configuration
 twig:
+    cache: false
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
 
@@ -52,6 +54,9 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        
+doctrine_mongodb: 
+    auto_generate_hydrator_classes: true 
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -60,3 +65,33 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+
+# app/config/config.yml
+doctrine_mongodb:
+    connections:
+        default:
+            server: mongodb://localhost:27017
+            options: {}
+    default_database: sp
+    document_managers:
+        default:
+            auto_mapping: true
+            
+fos_user:
+    db_driver: mongodb
+    firewall_name: main
+    user_class: SP\UserBundle\Document\User
+    
+avalanche_imagine:
+    filters:
+        my_thumb:
+            type:    thumbnail
+            options: { size: [160, 160], mode: outbound, cache_type: false}
+            
+        medium_thumb:
+            type:    thumbnail
+            options: { size: [100, 100], mode: outbound, cache_type: false}
+        
+        small_thumb:
+            type:    thumbnail
+            options: { size: [50, 50], mode: outbound, cache_type: false}

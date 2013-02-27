@@ -1,0 +1,84 @@
+{% extends 'SPBundle::sp_detail_layout.html.twig' %}
+{% block content %}
+
+<div class="offer">
+    <h3>{{ offer.title }}</h3>
+    <div class="row-fluid">
+        <div class="span4">
+            <div class="image">
+                <img src="{{ offer.webPath | apply_filter('my_thumb') }}" class="img-polaroid">
+            </div>
+        </div>
+        <div class="span8">
+            <div class="price">Цена: {{ offer.price }} руб.</div>
+            <div>Артикул: {{ offer.codeNumber }}</div>
+            <div>Количество: {{ offer.count }}</div>
+            
+            <form action="{{ path('create_order_item', { 'purchaseId': purchase.id, 'offerId': offer.id }) }}" method="post" {{ form_enctype(order_item_form) }} class="form-horizontal">
+                {{ form_errors(order_item_form) }}
+                <div class="input-append" id="count_input">{{ form_widget(order_item_form.count) }}<span class="add-on">шт.</span></div>
+                {{ form_rest(order_item_form) }}
+                <button class="btn btn-success" type="submit"><i class="icon-shopping-cart icon-white"></i> Заказать товар</button>
+            </form>
+            
+            <style>
+              #sp_spbundle_orderitemtype_count{
+                  width: 25px;
+              }
+            </style>
+            
+        </div>
+    </div>
+    <br>
+    <div class="row-fluid">
+        <legend>Подробное описание</legend>
+        <div>{{ offer.description }}</div>
+        <br>
+        <legend>Другие товары в этой закупке</legend>
+        <div class="row-fluid">
+            {% for offer in purchase.offers %}
+                        <a class="thumbnail" style="display: inline-block" href="{{ path('sp_offer_show', { 'sp_id': sp.id, 'offer_id': offer.id }) }}">
+                            <img src="{{ offer.webPath | apply_filter('small_thumb') }}">
+                        </a>
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+</div>
+
+    <legend>Комментарии:</legend>
+    
+    <div class="comments">
+    {% for comment in offer.comments %}
+        <div class="item">
+          <div class="image">
+            <img class="img-polaroid" src="{{ comment.writer.webPath | apply_filter('small_thumb') }}">
+          </div>
+          <div class="data">
+            <div class="name"><strong>{{ comment.writer.username }}</strong></div>
+            <div class="date">{{ comment.created|date("H:m d.m.Y") }}</div>
+          </div>
+          <div class="body">{{ comment.body }}</div>
+        </div>
+        <hr>
+    {% endfor %}
+    </div>
+    
+    <br>
+    
+    <form action="{{ path('offer_comment_create', { 'spId': sp.id, 'offerId': offer.id }) }}" method="post" {{ form_enctype(comment_form) }} class="form-horizontal">
+    {{ form_errors(comment_form) }}
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(comment_form.body) }}
+            {{ form_errors(comment_form.body) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(comment_form.body) }}
+	</div>
+    </div>
+    {{ form_rest(comment_form) }}
+    <button type="submit" class="btn btn-info btn-large">Отправить</button>
+    </form>
+
+{% endblock %}

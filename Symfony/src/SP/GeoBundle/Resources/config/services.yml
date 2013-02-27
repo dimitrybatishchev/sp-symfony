@@ -1,0 +1,7 @@
+parameters:
+#    geo.example.class: SP\GeoBundle\Example
+
+services:
+#    geo.example:
+#        class: %geo.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

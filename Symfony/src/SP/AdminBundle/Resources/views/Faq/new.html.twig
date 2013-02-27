@@ -1,0 +1,12 @@
+{% extends '::base-admin.html.twig' %}
+{% block body %}
+<h1>Создание вопроса-ответа</h1>
+
+<form action="{{ path('admin_faq_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+{% endblock %}

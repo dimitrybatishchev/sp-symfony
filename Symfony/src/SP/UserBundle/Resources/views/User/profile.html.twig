@@ -1,0 +1,55 @@
+{% extends '::base-content.html.twig' %}
+
+{% block main %}
+
+<div class="page-header">
+    <h1>Профиль</h1>
+</div>
+<div class="row-fluid">
+  <div class="span8">
+      <div class="row-fluid">
+        <div class="span4">
+            {% if user.webPath %}
+                <img class="img-polaroid" src="{{ user.webPath | apply_filter('my_thumb') }}">
+            {% endif %}
+        </div>
+        <div class="span8">
+            <legend>{{ user.username }}</legend>
+            <p><strong>{{ user.firstname }} {{ user.middlename }} {{ user.lastname }}</strong></p>
+        </div>
+      </div>
+      
+      <legend>Контакты</legend>
+      <legend>Друзья</legend>
+      <div>
+        {% for friend in user.friends %}
+            <a class="thumbnail" style="display: inline-block" href="{{ path('user', { 'username': friend.username }) }}">
+                <img src="{{ friend.webPath | apply_filter('small_thumb') }}">
+            </a>
+        {% endfor %}
+      </div>
+  </div>
+  <div class="span4">
+      <div class="well">
+          {% if app.user == user %}
+            <a class="btn btn-large btn-block" href="{{ path('profile_edit') }}"><i class="icon-user"></i> Редактировать профиль</a><br>
+            <a class="btn btn-large btn-block" href="/users/admin/change-email/"><i class="icon-envelope"></i> Изменить основной E-Mail</a><br>
+            <a class="btn btn-large btn-block" href="/users/admin/edit/notifications/"><i class="icon-cog"></i> Настройки уведомлений</a>
+          {% else %}          
+            <a class="btn btn-large btn-block" href=""><i class="icon-envelope"></i> Написать сообщение</a><br>
+
+            <form method="POST" action="{{ path('user_add_to_friends', { 'username': user.username }) }}">
+              {{ form_rest(add_to_friends_form) }}
+              <button type="submit" class="btn btn-success btn-large btn-block"><i class="icon-plus-sign icon-white"></i> Добавить в друзья</button>
+            </form>
+
+            <a class="btn btn-large btn-block" href=""><i class="icon-ban-circle"></i> В черный список</a><br>
+            <a class="btn btn-large btn-block" href="{{ path('user_gift') }}"><i class="icon-gift"></i> Подарить купоны</a>
+          {% endif %}
+      </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

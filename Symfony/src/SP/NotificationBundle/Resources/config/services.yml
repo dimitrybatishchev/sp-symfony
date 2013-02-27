@@ -1,0 +1,8 @@
+parameters:
+    notification.class: SP\NotificationBundle\Services\NotificationService
+
+services:
+    notification:
+        class: %notification.class%
+        arguments: [@doctrine.odm.mongodb.document_manager]
+      

@@ -1,0 +1,31 @@
+{% extends '::base-content.html.twig' %}
+
+{% block main %}
+
+<div class="page-header">
+    <h1>Закупка "{{ purchase.title }}"</h1>
+</div>
+<p>В стадии формирования можно изменить <a href="{{ path('purchase_edit_stop', { 'id': purchase.id }) }}">условия СТОП-заказа</a>, отредактировать <a href="{{ path('purchase_edit_attr', { 'id': purchase.id }) }}">условия закупки</a>, а также <a href="{{ path('purchase_offer_create', { 'id': purchase.id }) }}">добавить товары</a>. 
+    Перевести закупку в следующий статус можно на <a href="{{ path('purchase_edit', { 'id': purchase.id }) }}">странице управления закупкой.</a></p>
+
+<legend>Добавленные товары:</legend>
+{% if purchase.offers is empty %}
+    <div class="alert">
+        Пока что список товаров пуст.
+    </div>
+{% else %} 
+    <div class="offers">
+        <ul class="thumbnails example-sites">
+            {% for offer in purchase.offers %}
+            <li class="">
+                <a class="thumbnail" href="{{ path('purchase_edit_offer', { 'purchaseId': purchase.id, 'offerId': offer.id }) }}">
+                    <img src="{{ offer.webPath | apply_filter('my_thumb') }}">
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+
+{% endblock %}

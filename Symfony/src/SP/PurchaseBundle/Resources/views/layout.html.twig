@@ -1,0 +1,14 @@
+{% extends '::base-content.html.twig' %}
+
+{% block left %}
+
+<div class="well" style="max-width: 340px; padding: 8px 0;">
+  <ul class="nav nav-list">
+    <li class="nav-header">Каталог</li>
+    {% render url('category_list_for_menu') %}
+  </ul>
+</div>
+
+{{ parent() }}
+
+{% endblock %}

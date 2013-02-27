@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ post.name }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="page-header">
+            <h1>{{ post.name }}</h1>
+        </div>
+        {{ post.body | raw }}
+    </div>
+{% endblock %}

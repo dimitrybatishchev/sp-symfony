@@ -1,0 +1,33 @@
+{% extends '::base-content.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block main %}
+    <div class="page-header"><h1>Последние события</h1></div>
+    
+    <div class="notifications">
+    {% for notification in notifications %}
+        {% render url('render_notification', {'notificationId': notification.id}) %}
+        <hr>
+    {% endfor %}
+    </div>
+    
+    <style>
+            .notification{
+                padding: 10px;
+            }
+            .notification.unread{
+                background: #EDF1F5;
+            }
+            .notification .title strong {
+                font-size: 18px;
+            }
+            .notification .owner{
+                margin: 10px 0 0 0;
+            }
+            .notification .owner .img-polaroid{
+                float: left;
+                margin: 0 10px 10px 0;
+            }
+    </style>
+{% endblock %}

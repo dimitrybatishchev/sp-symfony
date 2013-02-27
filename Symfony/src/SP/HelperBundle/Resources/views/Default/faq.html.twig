@@ -1,0 +1,22 @@
+{% extends '::base-content.html.twig' %}
+
+{% block title %}Вопросы и ответы{% endblock %}
+
+{% block main %}
+    <h1>Вопросы и ответы</h1>
+    
+    <div class="faq">
+    {% for faqItem in faq %}
+        <div class="item">
+            <legend><div class="question">{{ faqItem.question }}</div></legend>
+            <div class="answer">{{ faqItem.answer | raw }}</div>
+        </div>
+    {% endfor %}
+    </div>
+    
+    <style>
+            .faq .item{
+                margin: 0 0 20px 0;
+            }
+    </style>
+{% endblock %}

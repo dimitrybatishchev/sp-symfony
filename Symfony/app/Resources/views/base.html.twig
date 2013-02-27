@@ -1,13 +1,226 @@
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        {% block stylesheets %}
+            <link rel="stylesheet" href="css/normalize.css">
+            <link rel="stylesheet" href="css/main.css">
+            <link href="{{ asset('/bootstrap/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('/bootstrap/css/bootstrap-responsive.min.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('/css/main.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('/css/app.css') }}" type="text/css" rel="stylesheet" />
+        {% endblock %}
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+        <!-- Navbar
+        ================================================== -->
+        <div class="navbar navbar-inverse navbar-fixed-top">
+          <div class="navbar-inner">
+            <div class="container">
+              <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="brand" href="/">Совместные покупки</a>
+              <div class="nav-collapse collapse">
+                {% if is_granted("ROLE_USER") %}  
+                <ul class="nav">
+                  <li class="divider-vertical"></li>
+                  <li rel="tooltip" data-original-title="Друзья: онлайн / всего">
+                      <a href="{{ path('friendship_requests') }}" class="item members" id="item_members_id">
+                          <nobr>
+                              <i class="icon-user icon-white"></i>
+                              <span class="badge badge-inverse">{% render url('friendship_requests_count') %}</span>
+                          </nobr>
+                      </a>
+                  </li>
+                  <li rel="tooltip" data-original-title="Личные сообщения: новые/всего">
+                      <a href="" class="item messages" id="item_messages_id">
+                          <nobr>
+                              <i class="icon-envelope icon-white"></i>
+                              <span class="badge badge-inverse">{% render url('unread_messages_count') %}</span>
+                          </nobr>
+                      </a>
+                  </li>
+                  <li rel="tooltip" data-original-title="Непрочитанные уведомления">
+                      <a href="{{ path('notifications') }}" class="item notices" id="item_notices_id" rel="/notification/last-ajax/">
+                          <nobr>
+                              <i class="icon-globe icon-white"></i>
+                              <span class="badge badge-inverse">{% render url('unread_notifications_count') %}</span>
+                          </nobr>
+                      </a>
+                  </li>
+                  <li class="divider-vertical"></li>
+                  <li class="active"><a href="./">Главная</a></li>
+                </ul>
+                {% endif %}   
+                      
+                {% if is_granted("ROLE_USER") %}
+                          <ul class="nav pull-right">
+                                <li>
+                                    <a href="{{ path('user', { 'username': app.user.username }) }}">{{ app.user.username }}</a>
+                                </li>
+                                <li class="divider-vertical"></li>
+                                <li class="dropdown">
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-wrench icon-white"></i> &nbsp;<b class="caret"></b>
+                                  </a>
+                                  <ul class="dropdown-menu pull-right">
+                                    <li class="ava">
+                                        <span><strong>{{ app.user.firstname }} {{ app.user.lastname }}</strong></span>
+                                        {% if app.user.webPath %}
+                                          <img class="img-polaroid" src="{{ app.user.webPath | apply_filter('my_thumb') }}">
+                                        {% endif %}
+                                        <span title="Статус участника">Нет статуса</span>
+                                        <span title="Статус организатора">Гуру продаж</span>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{ path('user', { 'username': app.user.username }) }}">Личная страница</a></li>
+                                    <li><a href="{{ path('profile_edit', { 'username': app.user.username }) }}">Редактировать профиль</a></li>
+                                    <li><a href="/users/admin/edit/notifications/">Настройка уведомлений</a></li>
+                                    <li><a href="/users/admin/change-email/">Изменить email</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{ path('friends', { 'username': app.user.username }) }}">Друзья</a></li>
+                                    <li><a href="/users/admin/black-list/">Черный список</a></li>
+                                    <li><a href="/users/admin/invite/send/">Отправить приглашение</a></li>
+                                    <li><a href="/users/admin/feedback/from-orgs/">Отзывы от организаторов</a></li>
+                                    <li><a href="/users/admin/feedback/from-customers/">Отзывы от участников</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="/logout/">Выход</a></li>
+                                  </ul>
+                              </li>
+                          </ul>
+               {% endif %}       
+                      
+                      
+                      
+              </div>
+               
+            </div>
+          </div>
+        </div>
+        
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        
+        <!-- Footer
+        ================================================== -->
+        <footer class="footer">
+          <div class="container">
+              <div class="row-fluid">
+            <div class="span3">
+                <h4>Помощь по сайту</h4>
+                <ul>
+                    <li><a href="/post/help">Что такое совместные покупки</a></li>
+                    <li><a data-toggle="modal" href="#status_info">Статусы закупок</a></li>
+                    <li><a href="/faq">Вопросы и ответы</a></li>
+                </ul>
+            </div>
+            <div class="span3">
+                <h4>Проект Владпокупки</h4>
+                <ul>
+                    <li><a href="/post/about">О проекте</a></li>
+                    <li><a href="/post/org">Организаторам</a></li>
+                    <li><a href="/post/rules">Правила</a></li>
+                </ul>
+            </div>
+            <div class="span3">
+                <h4>Обратная связь</h4>
+                <ul>
+                    <li><a href="/feedback">Техническая поддержка</a></li>
+                    <li><a href="/post/requisites">Контакты администрации</a></li>
+                </ul>
+            </div>
+            <div class="span3">
+                <h4>Следуй за нами</h4>
+            </div>
+                      </div>
+          </div>
+        </footer>
+        
+        
+        
+        <div class="modal hide fade" id="status_info">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>Статусы совместных закупок</h3>
+  </div>
+  <div class="modal-body">
+	<table class="table table-condensed table-striped">
+		<tr><td><img src="{{ asset('/images/status_2.gif') }}"></td>
+		<td>
+		Организатор указывает условия участия в закупке
+		и добавляет товары. Участники еще не могут заказывать товары.</td>
+		<td class="max_days">до <span class="badge">7</span> дн.</td>
+		</tr>
+
+		<tr><td><img src="{{ asset('/images/status_3.gif') }}"></td>
+		<td>
+		Участники могут делать заказы на добавленный товар, а также предлагать 
+		организатору добавить в закупку другие товары с сайта поставщика.</td>
+		<td class="max_days">до <span class="badge">50</span> дн.</td>
+		</tr>
+
+		<tr><td><img src="{{ asset('/images/status_4.gif') }}"></td>
+		<td>Организатор прекращает прием заказов в закупку, так как выполнены необходимые 
+		условия поставщика — собрана минимальная сумма заказа, набраны размерные ряды и другие.</td>
+		<td class="max_days">до <span class="badge">2</span> дн.</td>
+		</tr>
+
+		<tr><td><img src="{{ asset('/images/status_5.gif') }}"></td>
+		<td>Организатор отправляет сформированный заказ поставщику для уточнения наличие 
+		заказанного товара на складе и ждет счет на оплату.</td>
+		<td class="max_days">до <span class="badge">14</span> дн.</td>
+		</tr>
+
+		<tr><td><img src="{{ asset('/images/status_6.gif') }}"></td>
+		<td>Организатор собирает предоплату с участников, если он является авторизованным
+		организатором сайта или имеет высокий рейтинг.</td>
+		<td class="max_days">до <span class="badge">7</span> дн.</td>
+		</tr>
+
+		<tr><td><img src="{{ asset('/images/status_7.gif') }}"></td>
+		<td>Организатор оплачивает выставленный поставщиком счет.</td>
+		<td class="max_days">до <span class="badge">2</span> дн.</td>
+		</tr>
+
+		<tr><td><img src="{{ asset('/images/status_8.gif') }}"></td>
+		<td>Организатор договаривается с поставщиком о способах транспортировки заказа и 
+		информирует Участников о примерных датах получения заказа.</td>
+		<td class="max_days">до <span class="badge">60</span> дн.</td>
+		</tr>
+
+		<tr><td><img src="{{ asset('/images/status_9.gif') }}"></td>
+		<td>Организатор назначает встречи &mdash; сообщает время и место, где можно забрать 
+		свой заказ. Участники записываются на удобные им встречи и забирают свой заказ.</td>
+		<td class="max_days">до <span class="badge">14</span> дн.</td>
+		</tr>
+	</table>
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">Закрыть</a>
+  </div>
+</div>
+
+        {% block javascripts %}
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+            <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+            <script src="js/plugins.js"></script>
+            <script src="js/main.js"></script>
+            <script src="{{ asset('/js/lib/jquery-1.8.3.min.js') }}"></script>
+            <script src="{{ asset('/bootstrap/js/bootstrap.min.js') }}"></script>
+        {% endblock %}
+        
     </body>
 </html>

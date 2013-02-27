@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    <header class="jumbotron subhead" id="overview">
+      <div class="container">
+        <h1>Владпокупки</h1>
+        <p class="lead">Дипломный проект студента гр. ИСТ-108 Батищева Дмитрия</p>
+      </div>
+    </header>
+    <div class="container" style="margin-top: 40px;">
+        <div class="row">
+            <div class="span3">
+                {% block left %}
+                    <div class="well" style="max-width: 340px; padding: 8px 0;">
+                      <ul class="nav nav-list">
+                        <li><a href="#">Лента событий</a></li>
+                        <li><a href="{{ path('messages_main') }}">Личные сообщения</a></li>
+                        <li><a href="{{ path('profile_edit') }}">Редактировать профиль</a></li>
+                        <li class="divider"></li>
+                        <li class="nav-header">Покупки</li>
+                        <li><a href="{{ path('purchases_list') }}">Каталог закупок</a></li>
+                        <li><a href="{{ path('orders_list') }}">Мои заказы</a></li>
+                        <li><a href="#">Встречи</a></li>
+                        <li><a href="{{ path('market_research_list') }}">Изучение спроса</a></li>
+                        <li class="divider"></li>
+                        <li class="nav-header">Организатору</li>
+                        <li><a href="{{ path('dashboard_purchases_list') }}">Мои закупки</a></li>
+                        <li><a href="#">Управление товарами</a></li>
+                        <li><a href="#">Заказы</a></li>
+                        <li><a href="#">Предоплаты</a></li>
+                        <li><a href="#">Раздача товара</a></li>
+                        <li><a href="{{ path('archive') }}">Архив закупок</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Помощь</a></li>
+                      </ul>
+                    </div>
+                {% endblock %}
+            </div>
+            <div class="span9">
+                {% block main %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

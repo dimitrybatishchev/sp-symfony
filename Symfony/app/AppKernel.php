@@ -19,10 +19,24 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
+            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new SP\UserBundle\UserBundle(),
+            new SP\NotificationBundle\NotificationBundle(),
+            new SP\UserMessagesBundle\UserMessagesBundle(),
+            new SP\PurchaseBundle\PurchaseBundle(),
+            new SP\GeoBundle\GeoBundle(),
+            new SP\CatalogBundle\CatalogBundle(),
+            new SP\AdminBundle\AdminBundle(),
+            new SP\PostBundle\PostBundle(),
+            new SP\DashboardBundle\DashboardBundle(),
+            new SP\HelperBundle\HelperBundle(),
+            new SP\MarketResearchBundle\MarketResearchBundle(),
+            new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
+            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();

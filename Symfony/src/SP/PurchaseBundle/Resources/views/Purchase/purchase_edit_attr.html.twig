@@ -1,0 +1,167 @@
+{% extends '::base-content.html.twig' %}
+
+{% block main %}
+
+<div class="page-header">
+    <h1>Редактирование условий закупки</h1>
+</div>
+<form action="{{ path('purchase_edit_attr', { 'id': purchase.id }) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+    {{ form_errors(form) }}
+    <legend>Общая информация</legend>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.title) }}
+            {{ form_errors(form.title) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.title) }}
+	</div>
+    </div>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.city) }}
+            {{ form_errors(form.city) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.city) }}
+	</div>
+    </div>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.foreignUsers) }}
+            {{ form_errors(form.foreignUsers) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.foreignUsers) }}
+	</div>
+    </div>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.categories) }}
+            {{ form_errors(form.categories) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.categories) }}
+	</div>
+    </div>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.fromSite) }}
+            {{ form_errors(form.fromSite) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.fromSite) }}
+	</div>
+    </div>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.userCanAddOffers) }}
+            {{ form_errors(form.userCanAddOffers) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.userCanAddOffers) }}
+	</div>
+    </div>
+        
+    <legend>Гарантии</legend>
+    
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.colorIsGaranted) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.colorIsGaranted) }}
+	</div>
+    </div>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.sizeIsGaranted) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.sizeIsGaranted) }}
+	</div>
+    </div>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.exchangeBrokenIsGaranted) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.exchangeBrokenIsGaranted) }}
+	</div>
+    </div>
+        
+    <legend>Условия оплаты</legend>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.profit) }}
+            {{ form_errors(form.profit) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.profit) }}
+	</div>
+    </div>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.deliveryIncluded) }}
+            {{ form_errors(form.deliveryIncluded) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.deliveryIncluded) }}
+	</div>
+    </div>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.moneyTransferTypes) }}
+            {{ form_errors(form.moneyTransferTypes) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.moneyTransferTypes) }}
+	</div>
+    </div>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.prepaymentAmount) }}
+            {{ form_errors(form.prepaymentAmount) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.prepaymentAmount) }}
+	</div>
+    </div>
+    
+    <legend>Раздача заказов</legend>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.deliveryTypes) }}
+            {{ form_errors(form.deliveryTypes) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.deliveryTypes) }}
+	</div>
+    </div>
+    
+    <legend>Информация по закупке</legend>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.description) }}
+            {{ form_errors(form.description) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.description) }}
+	</div>
+    </div>
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.supplier) }}
+            {{ form_errors(form.supplier) }}
+        </div>
+	<div class="controls">
+            {{ form_widget(form.supplier) }}
+	</div>
+    </div>
+
+    {{ form_rest(form) }}
+
+    <button type="submit" class="btn btn-info btn-large">Сохранить</button>
+
+</form>
+{% endblock %}

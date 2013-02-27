@@ -1,0 +1,7 @@
+<form class="form-signin" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST">
+    <h2 class="form-signin-heading">Регистрация</h2>
+    {{ form_widget(form) }}
+    <div>
+        <input class="btn btn-large btn-primary" type="submit" value="Регистрация" />
+    </div>
+</form>

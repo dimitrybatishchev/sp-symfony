@@ -1,0 +1,19 @@
+{% extends '::base-admin.html.twig' %}
+{% block body %}
+<h1>Создание города</h1>
+
+<form action="{{ path('admin_city_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_city') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

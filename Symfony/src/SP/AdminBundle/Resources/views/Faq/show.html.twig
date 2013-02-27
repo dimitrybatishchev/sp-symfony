@@ -1,0 +1,13 @@
+{% extends '::base-admin.html.twig' %}
+{% block body %}
+<h1>Вопрос-ответ</h1>
+
+            <div>{{ entity.answer}}</div>
+            <hr>
+            <div>{{ entity.question}}</div>
+
+<div>
+    <a href="{{ path('admin_faq_edit', { 'id': entity.id }) }}">Edit</a>
+</div>
+
+{% endblock %}
